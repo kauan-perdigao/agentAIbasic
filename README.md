@@ -108,21 +108,6 @@ print(resultado)
 
 ---
 
-## 🧪 Testes
-
-Os testes **não precisam do Ollama rodando** — usam `unittest.mock` para simular as chamadas ao modelo.
-
-```bash
-python test_agent_ollama.py
-```
-
-**Saída esperada:**
-```
-Ran 13 tests in 0.003s
-
-OK
-```
-
 ### O que é testado
 
 | Classe | O que cobre |
@@ -137,7 +122,6 @@ OK
 ```
 projAgentsAI/
 ├── agent_ollama.py       # Agente principal
-├── test_agent_ollama.py  # Testes unitários
 ├── requirements.txt      # Dependências Python
 ├── .gitignore            # Arquivos ignorados pelo Git
 └── README.md             # Este arquivo
