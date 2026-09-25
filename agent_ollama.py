@@ -41,9 +41,18 @@ def executar_agente(pergunta: str) -> str:
     if resposta["message"].get("tool_calls"):
         for tool in resposta["message"]["tool_calls"]:
             nome = tool["function"]["name"]
-            args = tool["function"]["arguments"]
-            resultado = ferramentas[nome](**args)
-            print(f"-> {nome}({args}) = {resultado}")
+            raw_args = tool["function"]["arguments"]
+
+            # Converte os argumentos para float se vierem como string
+            parsed_args = {}
+            for chave, valor in raw_args.items():
+                try:
+                    parsed_args[chave] = float(valor)
+                except (ValueError, TypeError):
+                    parsed_args[chave] = valor
+
+            resultado = ferramentas[nome](**parsed_args)
+            print(f"-> {nome}({parsed_args}) = {resultado}")
             mensagens.append({"role": "tool", "content": resultado})
 
         resposta_final = ollama.chat(model="llama3.2", messages=mensagens)
